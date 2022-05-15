@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import UniInput from "./components/UniInput";
+
+type stateMessageType ={
+    message:string
+}[]
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let [message, setMessage]= useState<stateMessageType>([
+        {message:'Message1'},
+        {message:'Message2'},
+        {message:'Message3'}
+    ])
+    const addMassage=(sms:string)=>{
+        setMessage([{message:sms},...message])
+    }
+
+    return (
+        <div>
+            <UniInput addMassage={addMassage}/>
+            {message.map((sms,index)=>{
+                return (
+                    <div key={index} style={{marginLeft:"40px"}}>
+                        {sms.message}
+                    </div>
+                )
+            })}
+        </div>
+    );
 }
 
 export default App;
